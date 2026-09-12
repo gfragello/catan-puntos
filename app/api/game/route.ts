@@ -1,5 +1,6 @@
 import { addPlayer, readGame, removePlayer, updateScore } from '@/db/game-store';
 import { PLAYER_COLORS, type PlayerColor, type ScoreField } from '@/lib/game';
+import { isAdminRequest } from '@/lib/admin-auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,6 +14,9 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    if (!(await isAdminRequest(request))) {
+      return Response.json({ error: 'Sesión de administración requerida.' }, { status: 401 });
+    }
     const body = await request.json() as Record<string, unknown>;
     if (body.action === 'addPlayer') {
       const name = typeof body.name === 'string' ? body.name : '';

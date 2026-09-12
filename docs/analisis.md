@@ -61,7 +61,10 @@ La base tiene tres tablas:
 ## Decisiones y supuestos
 
 - El panel principal ocupa la ruta /; así un enlace corto abre directamente el marcador.
-- No se incorporó autenticación porque no fue solicitada. Cualquier persona que conozca la dirección /admin puede modificar la partida. Antes de usarla en un entorno público amplio conviene agregar un PIN o inicio de sesión.
+- La administración está protegida por un PIN numérico de 8 dígitos configurado como secreto del entorno, nunca en el código fuente.
+- La sesión usa una cookie firmada, HttpOnly, SameSite Strict y con una duración de 12 horas.
+- Los intentos fallidos se limitan a cinco por dirección en una ventana de 15 minutos.
+- El servidor protege tanto la ruta /admin como todas las operaciones que modifican puntajes; ocultar solamente la interfaz no se considera una protección suficiente.
 - El alcance actual administra una partida activa. No incluye historial ni múltiples salas simultáneas.
 - Se usan iconos con nombre accesible en el encabezado de la matriz, evitando depender sólo de la forma visual.
 
@@ -83,7 +86,7 @@ Según la documentación oficial consultada el 12 de septiembre de 2026, el plan
 
 Para una segunda versión:
 
-1. proteger /admin con PIN o autenticación;
+1. permitir el cambio del PIN desde una sección segura;
 2. crear códigos de partida para ejecutar varias mesas en paralelo;
 3. añadir historial y cierre de partida;
 4. sustituir el sondeo por Server-Sent Events si se necesita actualización instantánea con muchas pantallas.

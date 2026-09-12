@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useState, type SyntheticEvent } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import { Building2, Castle, House, Minus, Plus, Route, Swords, Trash2, Trophy } from 'lucide-react';
+import { Building2, Castle, House, LogOut, Minus, Plus, Route, Swords, Trash2, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { PLAYER_COLORS, type GameState, type PlayerColor, type ScoreField } from '@/lib/game';
@@ -179,6 +179,11 @@ export function AdminPanel() {
     try { await mutate({ action: 'removePlayer', playerId }); } catch { /* El mensaje ya se muestra. */ }
   };
 
+  const logout = async () => {
+    await fetch('/api/admin/session', { method: 'DELETE' });
+    window.location.reload();
+  };
+
   return (
     <main className="min-h-screen bg-background text-foreground">
       <header className="border-b border-white/10 bg-[#101b24]/90">
@@ -187,7 +192,10 @@ export function AdminPanel() {
             <span className="grid size-10 place-items-center rounded-xl bg-[#d9a441] text-[#14232d]"><Castle className="size-5" /></span>
             <div><p className="font-heading text-lg font-bold">Administración</p><p className="text-xs text-[#94a7b5]">Catán · Marcador de partida</p></div>
           </div>
-          <Link href="/" className="rounded-lg border border-white/10 bg-white/[.04] px-4 py-2 text-sm font-semibold transition hover:bg-white/[.08]">Ver panel</Link>
+          <div className="flex items-center gap-2">
+            <Link href="/" className="rounded-lg border border-white/10 bg-white/[.04] px-4 py-2 text-sm font-semibold transition hover:bg-white/[.08]">Ver panel</Link>
+            <Button type="button" variant="ghost" size="icon" aria-label="Cerrar sesión" title="Cerrar sesión" onClick={() => { void logout(); }}><LogOut /></Button>
+          </div>
         </div>
       </header>
 

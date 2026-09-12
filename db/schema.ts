@@ -39,3 +39,10 @@ export const scoreMilestones = sqliteTable('score_milestones', {
   uniqueIndex('idx_milestones_player_category_value').on(table.playerId, table.category, table.value),
   index('idx_milestones_game_category_value').on(table.gameId, table.category, table.value),
 ]);
+
+export const adminLoginAttempts = sqliteTable('admin_login_attempts', {
+  clientKey: text('client_key').primaryKey(),
+  attempts: integer('attempts').notNull().default(0),
+  windowStartedAt: integer('window_started_at').notNull(),
+  blockedUntil: integer('blocked_until').notNull().default(0),
+});
