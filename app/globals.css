@@ -132,3 +132,42 @@ body {
     @apply font-sans;
   }
 }
+
+/* ── Broadcast scoreboard animations ─────────────────────────── */
+
+@keyframes broadcast-ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes beam-sweep {
+  0% { transform: rotate(-18deg) translateX(-12%); }
+  50% { transform: rotate(14deg) translateX(12%); }
+  100% { transform: rotate(-18deg) translateX(-12%); }
+}
+
+@keyframes hero-shine {
+  0%, 55% { transform: translateX(-130%) skewX(-18deg); }
+  100% { transform: translateX(230%) skewX(-18deg); }
+}
+
+@keyframes live-ring {
+  0% { box-shadow: 0 0 0 0 rgb(244 63 94 / .55); }
+  70% { box-shadow: 0 0 0 9px rgb(244 63 94 / 0); }
+  100% { box-shadow: 0 0 0 0 rgb(244 63 94 / 0); }
+}
+
+@keyframes glow-breathe {
+  0%, 100% { opacity: .55; }
+  50% { opacity: 1; }
+}
+
+@keyframes score-flash {
+  0% { background-color: rgb(242 196 96 / .28); }
+  100% { background-color: transparent; }
+}
+
+@keyframes crown-wiggle {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
