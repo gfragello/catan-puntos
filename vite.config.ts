@@ -12,15 +12,18 @@ const { d1, r2 } = hostingConfig;
 // macOS Seatbelt blocks FSEvents, so Codex previews need polling for HMR.
 const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === 'seatbelt';
 
-export default defineConfig(async ({ mode }) => {
+export default defineConfig(async ({ mode, command }) => {
   const applicationEnv = loadEnv(mode, process.cwd(), '');
+  const runtimeVars: Record<string, string> = command === 'serve'
+    ? {
+        ADMIN_PIN: applicationEnv.ADMIN_PIN ?? '',
+        ADMIN_SESSION_SECRET: applicationEnv.ADMIN_SESSION_SECRET ?? '',
+      }
+    : {};
   const localBindingConfig = {
     main: 'vinext/server/fetch-handler',
     compatibility_flags: ['nodejs_compat'],
-    vars: {
-      ADMIN_PIN: applicationEnv.ADMIN_PIN ?? '',
-      ADMIN_SESSION_SECRET: applicationEnv.ADMIN_SESSION_SECRET ?? '',
-    },
+    vars: runtimeVars,
     d1_databases: d1
       ? [
           {
@@ -51,9 +54,12 @@ export default defineConfig(async ({ mode }) => {
 
   return {
     css: { postcss: { plugins: [tailwindcss()] } },
-    server: isCodexSeatbeltSandbox
-      ? { watch: { useFsEvents: false, usePolling: true } }
-      : undefined,
+    server: {
+      host: '0.0.0.0',
+      ...(isCodexSeatbeltSandbox
+        ? { watch: { useFsEvents: false, usePolling: true } }
+        : {}),
+    },
     plugins: [
       vinext(),
       sites(),

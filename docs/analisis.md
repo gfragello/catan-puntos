@@ -82,6 +82,18 @@ Según la documentación oficial consultada el 12 de septiembre de 2026, el plan
 
 - [Plan Hobby de Vercel](https://vercel.com/docs/plans/hobby)
 
+## Ejecución en la red local
+
+La misma aplicación puede ejecutarse en el equipo del administrador y abrirse desde otros dispositivos conectados a la misma red Wi-Fi o Ethernet.
+
+1. Ejecutar npm run dev:lan.
+2. En el equipo anfitrión, abrir http://localhost:3000.
+3. En los demás dispositivos, abrir http://IP-DEL-EQUIPO:3000.
+
+El proceso debe permanecer abierto durante la partida. La base local se conserva en la carpeta de estado de Wrangler. En Windows, si aparece una consulta del firewall, se debe permitir Node.js sólo en redes privadas.
+
+Los secretos del administrador se leen desde el archivo local .env al iniciar el proceso y no se incorporan al paquete compilado.
+
 ## Evolución sugerida
 
 Para una segunda versión:
