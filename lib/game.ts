@@ -8,10 +8,16 @@ export const PLAYER_COLORS = {
 } as const;
 
 export type PlayerColor = keyof typeof PLAYER_COLORS;
-export type ScoreField = 'settlements' | 'cities' | 'roads' | 'armies' | 'additionalPoints';
+export type ScoreField =
+  | 'settlements'
+  | 'cities'
+  | 'roads'
+  | 'armies'
+  | 'additionalPoints';
 
 export type PlayerScore = {
   id: number;
+  displayOrder: number;
   name: string;
   color: PlayerColor;
   settlements: number;

@@ -22,10 +22,11 @@ El total se calcula así:
     total =
       poblados
       + (ciudades × 2)
-      + caminos
       + puntos adicionales
       + (camino más largo ? 2 : 0)
       + (ejército más grande ? 2 : 0)
+
+La cantidad de caminos se muestra, pero no suma puntos por sí misma. Sólo otorga 2 puntos al jugador que posee el camino más largo, una vez alcanzado el mínimo de 5 caminos.
 
 La cantidad de ejércitos se muestra, pero no suma puntos por sí misma. Sólo otorga 2 puntos cuando el jugador posee el ejército más grande.
 
